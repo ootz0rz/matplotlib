@@ -1160,7 +1160,20 @@ class Figure(Artist):
             tight bbox is calculated.
 
         """
-
+        
+        self._check_kwargs([
+            "dpi",
+            "facecolor", 
+            "edgecolor",
+            "orientation",
+            "papertype",
+            "format",
+            "transparent",
+            "bbox_inches",
+            "pad_inches",
+            "bbox_extra_artists"
+       ])
+        
         kwargs.setdefault('dpi', rcParams['savefig.dpi'])
 
         extension = rcParams['savefig.extension']
@@ -1189,6 +1202,15 @@ class Figure(Artist):
             for ax, cc in zip(self.axes, original_axes_colors):
                 ax.patch.set_facecolor(cc[0])
                 ax.patch.set_edgecolor(cc[1])
+                
+    def _check_kwargs(self, allowedkwargs, **kwargs):
+        """
+        If a key in the given kwargs is not in the list allowedkwargs, print
+        a warning to console. 
+        """
+        for key in kwargs:
+            if not (key in allowedkwargs):
+                print 'Invalid Parameter:', key
 
     @docstring.dedent_interpd
     def colorbar(self, mappable, cax=None, ax=None, **kw):
