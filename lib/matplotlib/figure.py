@@ -1172,7 +1172,7 @@ class Figure(Artist):
             "bbox_inches",
             "pad_inches",
             "bbox_extra_artists"
-       ])
+       ], **kwargs)
         
         kwargs.setdefault('dpi', rcParams['savefig.dpi'])
 
@@ -1210,7 +1210,7 @@ class Figure(Artist):
         """
         for key in kwargs:
             if not (key in allowedkwargs):
-                print 'Invalid Parameter:', key
+                print("Warning: Invalid Parameter '", key, "'")
 
     @docstring.dedent_interpd
     def colorbar(self, mappable, cax=None, ax=None, **kw):
